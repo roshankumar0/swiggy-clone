@@ -1975,7 +1975,9 @@ const Food_data = [
                     "right": {}
                 },
                 "id": "do_home_trending_hotdeals_Seo_mWeb_StackedWidget",
-                "info": [{
+                "info":
+                 [
+                    {
                     "tabId": "trending",
                     "layout": {
                         "rows": 1,
