@@ -25,7 +25,7 @@ const Foodcard = () => {
           {items.map((item) => (
             <li key={item.title}>
               <article className=" overflow-hidden shadow-md hover:scale-105 transition">
-                <a href={item.link} aria-label={item.title}>
+                <a href='/restaurants' aria-label={item.title}>
                   <img
                     src={item.img}
                     alt={item.title}
