@@ -3,13 +3,18 @@ const IMAGE_BASE =
     "https://media-assets.swiggy.com/swiggy/image/upload/"
 
 const Dineout = ({ info }) => {
-    console.log(info)
     if (!info) return null;
-
+    console.log(info)
     return (
-        <div>
-            {info.mediaFiles.map((files) => {
-                return <img src={IMAGE_BASE + files.url} alt="" />
+        <div className='min-w-[328px]'>
+            {info?.mediaFiles.map((files) => {
+                return <div >
+                    <img className='h-full w-full object-cover' src={IMAGE_BASE + files?.url} alt="" />
+                    <span>{info?.costForTwo}</span>
+                    <span>{info?.name}</span>
+                    <span>{info?.offerInfoV3?.couponOffer?.title}</span>
+                    <span>{info?.offerInfoV3?.vendorOffer?.title}{info?.offerInfoV3?.vendorOffer?.subtitle}</span>
+                </div>
             })}
         </div>
     )

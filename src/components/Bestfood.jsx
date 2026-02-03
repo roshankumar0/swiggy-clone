@@ -5,7 +5,7 @@ import Dineout from './Dineout';
 
 const Bestfood = () => {
     // var datas = Food_data;
-    // console.log(Food_data[2]?.card?.card?.info[0].stackedDetails.dineoutRestaurants.restaurants)
+    // console.log(Food_data[2]?.card?.card?.info[0].layout)
     return (
         <div className='max-w-[80%] mx-auto'>
             {
@@ -16,16 +16,19 @@ const Bestfood = () => {
                     </div>
                 })
             }
-            {
-                Food_data[2]?.card?.card?.info[0]
-                    ?.stackedDetails?.dineoutRestaurants?.restaurants
-                    ?.map((dineout, index) => (
-                        <Dineout
-                            key={dineout?.info?.id || index}
-                            info={dineout.info}
-                        />
-                    ))
-            }
+            <div className='flex gap-4 overflow-x-scroll'>
+                {
+                    Food_data[2]?.card?.card?.info[0]
+                        ?.stackedDetails?.dineoutRestaurants?.restaurants
+                        ?.map((dineout, index) => (
+                            <Dineout
+                                key={dineout?.info?.id || index}
+                                info={dineout.info}
+                                layout={Food_data[2]?.card?.card?.info[0].layout}
+                            />
+                        ))
+                }
+            </div>
         </div>
     )
 }
