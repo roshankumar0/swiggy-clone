@@ -4,6 +4,7 @@ import Bestfood from './components/Bestfood'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import Home from './components/Home'
 import Restaurants from './components/Restaurants'
+import RestaurantsMenu from './components/RestaurantsMenu'
 const App = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/restaurants' element={<Restaurants />} />
+          <Route path='/city-delhi/:id' element={<RestaurantsMenu />} />
         </Routes>
       </BrowserRouter>
     </div>

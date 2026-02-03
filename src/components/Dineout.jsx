@@ -4,7 +4,6 @@ const IMAGE_BASE =
 
 const Dineout = ({ info }) => {
     if (!info) return null;
-    console.log(info)
     return (
         <div className='min-w-[328px]'>
             {info?.mediaFiles.map((files) => {
