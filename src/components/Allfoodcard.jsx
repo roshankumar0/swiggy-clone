@@ -1,17 +1,22 @@
-import React from "react"
+import React from "react";
+import { Link } from "react-router";
+
+const IMAGE_BASE =
+  "https://media-assets.swiggy.com/swiggy/image/upload/";
 
 const Allfoodcard = ({ imageCard, layout }) => {
-  if (!Array.isArray(imageCard)) return null
+  if (!Array.isArray(imageCard)) return null;
 
-  const rows = layout?.rows || 1
-  const columns = layout?.columns || imageCard.length
-  const gap = layout?.itemSpacing || 8
-  const scroll = layout?.horizontalScrollEnabled
-
+  const rows = layout?.rows || 1;
+  const columns = layout?.columns || imageCard.length;
+  const gap = layout?.itemSpacing || 8;
+  console.log(imageCard)
   return (
-    <div className="">
-      <div className={scroll ? "overflow-x-auto scrollbar-hide" : ""}>
-        <div
+    <section aria-label="Food categories" className="w-full">
+      {/* Scroll Container */}
+      <div className="overflow-x-auto scroll-smooth">
+        {/* Grid wrapper */}
+        <ul
           className="w-max"
           style={{
             display: "grid",
@@ -22,21 +27,33 @@ const Allfoodcard = ({ imageCard, layout }) => {
           }}
         >
           {imageCard.map((item, index) => (
-            <div key={item.id || index} className="text-center">
-              <img
-                src={
-                  "https://media-assets.swiggy.com/swiggy/image/upload/" +
-                  item.imageId
-                }
-                alt=""
-                className="w-36 h-36 object-contain hover:scale-105 transition"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
+            <li
+              key={item?.id || index}
+              className="flex justify-center"
+            >
+              <figure className="text-center">
+                <Link to={"/collection/" + item?.action?.link}>
+                  <img
+                    src={IMAGE_BASE + item.imageId}
+                    alt={item?.accessibility?.altText || "Food item"}
+                    className="
+                    object-contain transition-transform duration-200
+                    hover:scale-105
 
-export default Allfoodcard
+                    w-24 h-24        /* mobile */
+                    sm:w-28 sm:h-28  /* tablet */
+                    md:w-32 md:h-32  /* small desktop */
+                    lg:w-36 lg:h-36  /* large desktop */
+                  "
+                  />
+                </Link>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
+export default Allfoodcard;

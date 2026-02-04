@@ -6,6 +6,7 @@ import Home from './components/Home'
 import Restaurants from './components/Restaurants'
 import RestaurantsMenu from './components/RestaurantsMenu'
 import Instamart from './components/Instamart'
+import CollectionRestaurants from './components/CollectionRestaurants '
 const App = () => {
   return (
     <div>
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/restaurants' element={<Restaurants />} />
           <Route path='/instamart' element={<Instamart />} />
           <Route path='/city-delhi/:id' element={<RestaurantsMenu />} />
+          <Route path='/collection/:id' element={<CollectionRestaurants/>} />
         </Routes>
       </BrowserRouter>
     </div>

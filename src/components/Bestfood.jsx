@@ -1,36 +1,67 @@
-import React from 'react'
-import Food_data from '../Utils/FoodData';
-import Allfoodcard from './Allfoodcard';
-import Dineout from './Dineout';
+import React from "react";
+import Food_data from "../Utils/FoodData";
+import Allfoodcard from "./Allfoodcard";
+import Dineout from "./Dineout";
 
 const Bestfood = () => {
-    // var datas = Food_data;
-    // console.log(Food_data[2]?.card?.card?.info[0].layout)
     return (
-        <div className='max-w-[80%] mx-auto'>
-            {
-                Food_data.map((data) => {
-                    return <div key={data.card.card.id}>
-                        <h1>{data?.card?.card?.header?.title}</h1>
-                        <Allfoodcard layout={data.card.card.layout} imageCard={data?.card?.card?.imageGridCards?.info} />
+        <main className="max-w-[80%] mx-auto px-4 py-8 space-y-12">
+            {/* Food Sections */}
+            {Food_data.map((data, index) => (
+                <section key={data.card.card.id || index} className="space-y-4">
+                    <header>
+                        <h2 className="text-2xl font-bold text-gray-900">
+                            {data?.card?.card?.header?.title}
+                        </h2>
+                    </header>
+
+                    <Allfoodcard
+                        layout={data.card.card.layout}
+                        imageCard={data?.card?.card?.imageGridCards?.info}
+                    />
+                </section>
+            ))}
+
+            {/* Dineout Section */}
+            <section className="space-y-4">
+                {/* Header with arrows */}
+                <header className="flex items-center justify-between">
+                    <div className="flex gap-2">
+                        <button
+                            aria-label="Previous"
+                            className="h-9 w-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        >
+                            ←
+                        </button>
+                        <button
+                            aria-label="Next"
+                            className="h-9 w-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        >
+                            →
+                        </button>
                     </div>
-                })
-            }
-            <div className='flex gap-4 overflow-x-scroll'>
-                {
-                    Food_data[2]?.card?.card?.info[0]
+                </header>
+
+                {/* Horizontal scroll cards */}
+                <div className="flex gap-6 pb-4">
+                    {Food_data[2]?.card?.card?.info[0]
                         ?.stackedDetails?.dineoutRestaurants?.restaurants
                         ?.map((dineout, index) => (
-                            <Dineout
+                            <article
                                 key={dineout?.info?.id || index}
-                                info={dineout.info}
-                                layout={Food_data[2]?.card?.card?.info[0].layout}
-                            />
-                        ))
-                }
-            </div>
-        </div>
-    )
-}
+                                className="min-w-[300px] flex-shrink-0"
+                            >
+                                <Dineout
+                                    info={dineout.info}
+                                    layout={Food_data[2]?.card?.card?.info[0].layout}
+                                />
+                            </article>
+                        ))}
+                </div>
+            </section>
 
-export default Bestfood
+        </main>
+    );
+};
+
+export default Bestfood;

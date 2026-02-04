@@ -1,35 +1,72 @@
-import React, { useEffect, useState } from 'react'
-import RestaurantCard from './RestaurantCard';
+import React, { useEffect, useState } from "react";
+import RestaurantCard from "./RestaurantCard";
 
 const Restaurants = () => {
-    let [restaurantsdata, setRestaurants] = useState([])
-    async function Restaurantsfetch() {
+    const [restaurantsData, setRestaurants] = useState([]);
+
+    const fetchRestaurants = async () => {
         try {
-            let cors = 'https://cors-anywhere.herokuapp.com/'
-            let res = await fetch(cors + "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999&carousel=true&third_party_vendor=1")
-            let data = await res.json()
-            setRestaurants(data.data.cards)
+            const cors = "https://cors-anywhere.herokuapp.com/";
+            const res = await fetch(
+                cors +
+                "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999&carousel=true&third_party_vendor=1"
+            );
+            const data = await res.json();
+            setRestaurants(data?.data?.cards || []);
         } catch (error) {
-            console.log('efsehf', error)
+            console.error("Restaurant fetch error:", error);
         }
+    };
 
-    }
     useEffect(() => {
-        Restaurantsfetch()
-    }, [])
+        fetchRestaurants();
+    }, []);
+
     return (
-        <>
-            {
-                restaurantsdata?.map((item) => {
-                    return <div key={item?.card?.card?.id}>
-                        <h1>{item?.card?.card?.header?.title}</h1>
-                        <RestaurantCard cards={item?.card?.card} />
-                    </div>
-                })
-            }
+        <main
+            className="
+        mx-auto
+        max-w-screen-xl
+        px-4 sm:px-6 lg:px-8
+        py-6 sm:py-10
+        space-y-10 sm:space-y-14
+      "
+        >
+            {restaurantsData.map((item, index) => {
+                const card = item?.card?.card;
+                if (!card) return null;
 
-        </>
-    )
-}
+                return (
+                    <section
+                        key={card?.id || index}
+                        aria-labelledby={`section-${card?.id || index}`}
+                        className="space-y-4 sm:space-y-6"
+                    >
+                        {/* Section header */}
+                        {card?.header?.title && (
+                            <header>
+                                <h2
+                                    id={`section-${card?.id || index}`}
+                                    className="
+                    text-lg font-semibold text-gray-900
+                    sm:text-xl
+                    md:text-2xl
+                  "
+                                >
+                                    {card.header.title}
+                                </h2>
+                            </header>
+                        )}
 
-export default Restaurants
+                        {/* Cards */}
+                        <div className="relative">
+                            <RestaurantCard cards={card} />
+                        </div>
+                    </section>
+                );
+            })}
+        </main>
+    );
+};
+
+export default Restaurants;

@@ -3,7 +3,7 @@ const Recommended = ({ recommended }) => {
     item => item?.card?.card?.title
   );
 
-  console.log(dataWithTitle);
+  // console.log(dataWithTitle);
 
   return (
     <div>
