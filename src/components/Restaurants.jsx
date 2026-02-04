@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import RestaurantCard from './RestaurantCard'
+import RestaurantCard from './RestaurantCard';
 
 const Restaurants = () => {
     let [restaurantsdata, setRestaurants] = useState([])
     async function Restaurantsfetch() {
-        let cors = 'https://cors-anywhere.herokuapp.com/'
-        let res = await fetch(cors + "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999&carousel=true&third_party_vendor=1")
-        let data = await res.json()
-        setRestaurants(data.data.cards)
+        try {
+            let cors = 'https://cors-anywhere.herokuapp.com/'
+            let res = await fetch(cors + "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999&carousel=true&third_party_vendor=1")
+            let data = await res.json()
+            setRestaurants(data.data.cards)
+        } catch (error) {
+            console.log('efsehf', error)
+        }
+
     }
     useEffect(() => {
         Restaurantsfetch()
     }, [])
-    console.log(restaurantsdata)
     return (
         <>
             {
@@ -23,6 +27,7 @@ const Restaurants = () => {
                     </div>
                 })
             }
+
         </>
     )
 }

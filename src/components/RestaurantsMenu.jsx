@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import Recommended from './Recommended'
 
 const RestaurantsMenu = () => {
     let [menu, setMenu] = useState([])
@@ -14,8 +15,7 @@ const RestaurantsMenu = () => {
 
     useEffect(() => {
         RestaurantSingleMenu()
-    }, [])
-    console.log(menu)
+    }, []);
     return (
         <div>
             {menu.map((items, index) => (
@@ -49,6 +49,7 @@ const RestaurantsMenu = () => {
                     </div>
                 </div>
             ))}
+            <Recommended recommended={menu[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards} />
         </div>
     )
 }
