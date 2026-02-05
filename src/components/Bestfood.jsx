@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Food_data from "../Utils/FoodData";
 import Allfoodcard from "./Allfoodcard";
 import Dineout from "./Dineout";
 
 const Bestfood = () => {
     const scrollRef = useRef(null);
+    // const[active,setActive]=useState(false)
     const scrollLeft = () => {
         scrollRef.current.scrollBy({
             left: -300, // jitna scroll chahiye
@@ -13,10 +14,12 @@ const Bestfood = () => {
     };
 
     const scrollRight = () => {
+        if (!scrollRef.current) return;
         scrollRef.current.scrollBy({
             left: 300,
             behavior: "smooth",
         });
+        scrollRef.current.style.background = 'red'
     };
     return (
         <main className="max-w-[80%] mx-auto px-4 py-8 space-y-12">

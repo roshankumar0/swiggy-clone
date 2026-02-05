@@ -7,6 +7,7 @@ import Restaurants from './components/Restaurants'
 import RestaurantsMenu from './components/RestaurantsMenu'
 import Instamart from './components/Instamart'
 import CollectionRestaurants from './components/CollectionRestaurants '
+import SecondaryHome from './components/SecondaryHome'
 const App = () => {
   return (
     <div>
@@ -14,10 +15,13 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/restaurants' element={<Restaurants />} />
           <Route path='/instamart' element={<Instamart />} />
-          <Route path='/city-delhi/:id' element={<RestaurantsMenu />} />
-          <Route path='/collection/:id' element={<CollectionRestaurants/>} />
+
+          <Route element={<SecondaryHome />}>
+            <Route path='/restaurants' element={<Restaurants />} />
+            <Route path='/city-delhi/:id' element={<RestaurantsMenu />} />
+            <Route path='/collection/:id' element={<CollectionRestaurants />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
