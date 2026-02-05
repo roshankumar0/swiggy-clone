@@ -22,7 +22,7 @@ const RestaurantCard = ({ cards }) => {
             flex gap-4
             overflow-x-auto
             pb-2
-            scrollbar-hide
+            scrollbar
           "
         >
           {categoryImages.map((item) => (

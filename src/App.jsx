@@ -19,7 +19,7 @@ const App = () => {
 
           <Route element={<SecondaryHome />}>
             <Route path='/restaurants' element={<Restaurants />} />
-            <Route path='/city-delhi/:id' element={<RestaurantsMenu />} />
+            <Route path='/city-delhi/:idx' element={<RestaurantsMenu />} />
             <Route path='/collection/:id' element={<CollectionRestaurants />} />
           </Route>
         </Routes>

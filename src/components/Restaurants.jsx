@@ -17,7 +17,7 @@ const Restaurants = () => {
             console.error("Restaurant fetch error:", error);
         }
     };
-
+    console.log(restaurantsData)
     useEffect(() => {
         fetchRestaurants();
     }, []);
@@ -40,19 +40,12 @@ const Restaurants = () => {
                     <section
                         key={card?.id || index}
                         aria-labelledby={`section-${card?.id || index}`}
-                        className="space-y-4 sm:space-y-6"
+                        className="space-y-4 sm:space-y-"
                     >
                         {/* Section header */}
                         {card?.header?.title && (
                             <header>
-                                <h2
-                                    id={`section-${card?.id || index}`}
-                                    className="
-                    text-lg font-semibold text-gray-900
-                    sm:text-xl
-                    md:text-2xl
-                  "
-                                >
+                                <h2 id={`section-${card?.id || index}`} className="text-lg font-semibold text-gray-900 sm:text-xl  md:text-2xl">
                                     {card.header.title}
                                 </h2>
                             </header>

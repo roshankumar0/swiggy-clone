@@ -1,55 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import Recommended from './Recommended'
-
+import Recommended from '../components/Recommended'
 const RestaurantsMenu = () => {
-    let [menu, setMenu] = useState([])
-    const { id } = useParams()
+    const [details, setDetails] = useState([])
+    const { idx } = useParams()
     let cors = 'https://cors-anywhere.herokuapp.com/'
-    let url = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=${id}`
-    async function RestaurantSingleMenu() {
-        let res = await fetch(cors + url)
-        let data = await res.json();
-        setMenu(data?.data?.cards)
-    }
-
+    let url = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=${idx}`
     useEffect(() => {
-        RestaurantSingleMenu()
-    }, []);
+        async function fetchMenu() {
+            try {
+                let res = await fetch(cors + url)
+                let datas = await res.json();
+                setDetails(datas?.data?.cards)
+            } catch (error) {
+                console.log(error, 'inside restaurantMenu.jsx')
+            }
+        }
+        fetchMenu()
+    }, [idx])
     return (
         <div>
-            {menu.map((items, index) => (
-                <div key={index}>
-                    <h1>{items?.card?.card?.text}</h1>
-
-                    <ul className='flex'>
-                        {items?.card?.card?.tabs?.map((tab, i) => (
-                            <li key={i}>{tab?.title}</li>
-                        ))}
-                    </ul>
-                    <div>
-                        {/* <img src={'https://media-assets.swiggy.com/swiggy/image/upload/' + items?.card?.card?.info?.cloudinaryImageId} alt="" /> */}
-                        <p>{items?.card?.card?.info?.costForTwoMessage}</p>
-                        <p>{items?.card?.card?.info?.totalRatingsString}</p>
-                        <p>{items?.card?.card?.info?.avgRatingString}</p>
-                        <p>{items?.card?.card?.info?.locality}</p>
-                        <p>{items?.card?.card?.info?.areaName}</p>
+            {
+                details.map((menu) => {
+                    return <div key={menu?.card?.card?.text}>
+                        <Recommended recommended={menu?.groupedCard?.cardGroupMap} />
                     </div>
-                    <div>
-                        {items?.card?.card?.gridElements?.infoWithStyle?.offers?.map((offer) => {
-                            return <div>
-                                <div>
-                                    {offer?.info?.offerTag}
-                                </div>
-                                <div>
-                                    {offer?.info?.header}
-                                </div>
-                            </div>
-                        })}
-                    </div>
-                </div>
-            ))}
-            <Recommended recommended={menu[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards} />
+                })
+            }
         </div>
     )
 }
