@@ -11,3 +11,7 @@ h1{
 p{
   font-family: "Gilroy-Bold";
 }
+
+.scrollbar::-webkit-scrollbar{
+  display: none;
+}

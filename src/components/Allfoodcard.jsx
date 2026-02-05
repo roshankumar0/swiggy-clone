@@ -14,7 +14,7 @@ const Allfoodcard = ({ imageCard, layout }) => {
   return (
     <section aria-label="Food categories" className="w-full">
       {/* Scroll Container */}
-      <div className="overflow-x-auto scroll-smooth">
+      <div className="overflow-x-auto scroll-smooth scrollbar">
         {/* Grid wrapper */}
         <ul
           className="w-max"
