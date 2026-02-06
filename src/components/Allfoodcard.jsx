@@ -10,7 +10,6 @@ const Allfoodcard = ({ imageCard, layout }) => {
   const rows = layout?.rows || 1;
   const columns = layout?.columns || imageCard.length;
   const gap = layout?.itemSpacing || 8;
-  console.log(imageCard)
   return (
     <section aria-label="Food categories" className="w-full">
       {/* Scroll Container */}

@@ -12,14 +12,12 @@ const Bestfood = () => {
             behavior: "smooth",
         });
     };
-
     const scrollRight = () => {
         if (!scrollRef.current) return;
         scrollRef.current.scrollBy({
             left: 300,
             behavior: "smooth",
         });
-        scrollRef.current.style.background = 'red'
     };
     return (
         <main className="max-w-[80%] mx-auto px-4 py-8 space-y-12">
@@ -27,9 +25,11 @@ const Bestfood = () => {
             {Food_data.map((data, index) => (
                 <section key={data.card.card.id || index} className="space-y-4">
                     <header>
-                        <h2 className="text-2xl font-bold text-gray-900">
+                        {data?.card?.card?.imageGridCards && data?.card?.card?.header && (<h2 className="text-2xl font-bold text-gray-900">
                             {data?.card?.card?.header?.title}
-                        </h2>
+                        </h2>)
+                        }
+
                     </header>
 
                     <Allfoodcard
