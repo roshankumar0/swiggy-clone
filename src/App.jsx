@@ -8,23 +8,27 @@ import RestaurantsMenu from './components/RestaurantsMenu'
 import Instamart from './components/Instamart'
 import CollectionRestaurants from './components/CollectionRestaurants '
 import SecondaryHome from './components/SecondaryHome'
+import stored from './stores/swiggyStore'
+import { Provider } from 'react-redux'
 const App = () => {
   return (
-    <div>
+    <>
+      <Provider store={stored}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/instamart' element={<Instamart />} />
 
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/instamart' element={<Instamart />} />
+            <Route element={<SecondaryHome />}>
+              <Route path='/restaurants' element={<Restaurants />} />
+              <Route path='/city-delhi/:idx' element={<RestaurantsMenu />} />
+              <Route path='/collection/:id' element={<CollectionRestaurants />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
 
-          <Route element={<SecondaryHome />}>
-            <Route path='/restaurants' element={<Restaurants />} />
-            <Route path='/city-delhi/:idx' element={<RestaurantsMenu />} />
-            <Route path='/collection/:id' element={<CollectionRestaurants />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    </>
   )
 }
 

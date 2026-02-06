@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { addCart, IncreamentCart, DecreamentCart } from '../stores/swiggySlice';
 
 const RestaurantsMenu = () => {
     const [details, setDetails] = useState({});
+    const [count, setCount] = useState(0)
     const { idx } = useParams();
 
     const cors = "https://cors-anywhere.herokuapp.com/";
@@ -15,8 +18,7 @@ const RestaurantsMenu = () => {
     };
     useEffect(() => {
         fetRecommended()
-    }, [])
-    console.log(details)
+    }, []);
     return (
         <div className='max-w-[800px] min-w-[800px]  m-auto pt-6 pr-4 pb-4 pl-4'>
             <div className='flex mb-6'>
@@ -38,8 +40,26 @@ const RestaurantsMenu = () => {
 export default RestaurantsMenu
 
 const ItemCard = ({ card }) => {
+    const [count, setCount] = useState(0)
+    let dispatch = useDispatch()
     const info = card?.card?.info;
-
+    const data = useSelector(state => state?.swiggerSlicer.data)
+    console.log(data)
+    let handleAddCart = () => {
+        setCount(1);
+        dispatch(addCart(info))
+    }
+    const handleDecreament = () => {
+        setCount(count - 1)
+        dispatch(DecreamentCart(info))
+    }
+    let handelIncreament = () => {
+        setCount(count + 1)
+        dispatch(IncreamentCart(info))
+    }
+    useEffect(() => {
+        console.log(data)
+    }, [data])
     return (
         <article className="flex gap-4 py-6">
             {/* Left Content */}
@@ -73,13 +93,42 @@ const ItemCard = ({ card }) => {
                     className="h-[144px] w-[156px] rounded-lg object-cover sm:h-28 md:h-32"
                 />
 
-                <figcaption className="absolute inset-x-0 -bottom-3 flex flex-col items-center ] ">
-                    <button className="rounded-md w-[120px] h-[38.4px] border border-green-600 bg-white px-4 py-1 text-sm font-semibold text-green-600 shadow-sm hover:bg-green-50">
-                        ADD
-                    </button>
-                    <span className="mt-1 text-[10px] text-gray-500">
-                        Customisable
-                    </span>
+
+                <figcaption className="absolute inset-x-0 -bottom-3 flex flex-col items-center">
+                    {count === 0 ? (
+                        <>
+                            <button
+                                onClick={() => handleAddCart()}
+                                className="h-10 w-[120px] rounded-md border border-green-600 bg-white text-sm font-semibold text-green-600 shadow-sm hover:bg-green-50"
+                            >
+                                ADD
+                            </button>
+
+                            <span className="mt-1 text-[10px] text-gray-500">
+                                Customisable
+                            </span>
+                        </>
+                    ) : (
+                        <div className="flex  h-10 w-[120px] items-center justify-between rounded-md border border-green-600 bg-white px-3 text-green-600 shadow-sm">
+                            <button
+                                onClick={() => handleDecreament()}
+                                className="text-lg font-bold"
+                                aria-label="Decrease quantity"
+                            >
+                                −
+                            </button>
+
+                            <span className="text-sm font-semibold">{count}</span>
+
+                            <button
+                                onClick={() => handelIncreament()}
+                                className="text-lg font-bold"
+                                aria-label="Increase quantity"
+                            >
+                                +
+                            </button>
+                        </div>
+                    )}
                 </figcaption>
             </figure>
         </article>

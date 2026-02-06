@@ -1,42 +1,85 @@
-import React, { useEffect, useState } from "react";
-import Grocery from "./Grocery";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../stores/swiggySlice';
+
+const InstamartShimmer = () => {
+  return (
+    <main className="px-4 py-6 max-w-7xl mx-auto">
+      {[1, 2, 3].map((section) => (
+        <section key={section} className="mb-10">
+          <div className="h-6 w-40 bg-gray-200 rounded mb-4 animate-pulse"></div>
+
+          <div className="
+            grid gap-4
+            grid-cols-2
+            sm:grid-cols-3
+            md:grid-cols-4
+            lg:grid-cols-6
+          ">
+            {Array.from({ length: 12 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-32 sm:h-36 md:h-40 bg-gray-200 rounded-xl animate-pulse"
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+};
 
 const Instamart = () => {
-  const [instaData, setInstaData] = useState(null);
+  const IMAGE_BASE = "https://media-assets.swiggy.com/swiggy/image/upload/";
+  const dispatch = useDispatch();
+  const { loading, error, instaData } = useSelector(state => state.swiggy);
 
-  const cors = "https://cors-anywhere.herokuapp.com/";
-  const URL =
-    "https://www.swiggy.com/api/instamart/home/v2?offset=3&layoutId=4987&storeId=1404165&primaryStoreId=1404165&secondaryStoreId=&clientId=INSTAMART-APP";
-
-  const fetchInstamart = async () => {
-    try {
-      const res = await fetch(cors + URL);
-      const data = await res.json();
-      setInstaData(data?.data || null);
-    } catch (error) {
-      console.error("Instamart fetch error:", error);
-    }
-  };
+  const instaMart = instaData?.data?.cards
+    ?.filter(item => item.card?.card?.header?.title)
+    .map(item => item.card.card);
 
   useEffect(() => {
-    fetchInstamart();
-  }, []);
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  if (loading) return <InstamartShimmer />;
+  if (error) return <p className="text-center mt-10">Something went wrong</p>;
 
   return (
-    <main className="max-w-screen-xl mx-auto px-4 py-6">
-      {/* Page heading */}
-      <header className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-          Instamart
-        </h1>
-      </header>
+    <main className="px-4 py-6 max-w-7xl mx-auto">
+      {instaMart?.map((section, index) => {
+        const items = section?.gridElements?.infoWithStyle?.info;
+        console.log(items)
 
-      {/* Content */}
-      {instaData ? (
-        <Grocery data={instaData} />
-      ) : (
-        <p className="text-gray-500">Loading groceries...</p>
-      )}
+        return (
+          <section key={index} className="mb-10 px-4">
+            <header className="mb-4">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">
+                {section?.header?.title}
+              </h2>
+            </header>
+
+            <div className="flex mt-4 gap-2">
+              {items?.map((item) => (
+                <div className='max-w-[112px] cursor-pointer' key={item.id}>
+                  <figure
+
+                    className="rounded-xl"
+                  >
+                    <img
+                      src={IMAGE_BASE + item.imageId}
+                      alt={item?.description || 'Instamart item'}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                    <p className='p-2 text-[13px] font-semibold'>{item?.description}</p>
+                  </figure>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })}
     </main>
   );
 };
