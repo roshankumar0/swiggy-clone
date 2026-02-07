@@ -11,6 +11,9 @@ import SecondaryHome from './components/SecondaryHome'
 import stored from './stores/swiggyStore'
 import { Provider } from 'react-redux'
 import RestoDineout from './components/RestoDineout'
+import ThirdHome from './components/ThirdHome'
+import Dineout from './components/Dineout'
+import Dineouts from './components/Dineouts'
 const App = () => {
   return (
     <>
@@ -25,7 +28,10 @@ const App = () => {
               <Route path='/city-delhi/:idx' element={<RestaurantsMenu />} />
               <Route path='/collection/:id' element={<CollectionRestaurants />} />
             </Route>
-            <Route path='/restaurants/:restoId/dineout' element={<RestoDineout />} />
+            <Route element={<ThirdHome />}>
+              <Route path='/restaurants/:restoId/dineout' element={<RestoDineout />} />
+              <Route path='/dineouts' element={<Dineouts />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </Provider>

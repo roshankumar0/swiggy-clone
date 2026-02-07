@@ -31,7 +31,7 @@ const Allfoodcard = ({ imageCard, layout }) => {
               className="flex justify-center"
             >
               <figure className="text-center">
-                <Link to={"/collection/" + item?.action?.link}>
+                <Link to={item?.action?.link}>
                   <img
                     src={IMAGE_BASE + item.imageId}
                     alt={item?.accessibility?.altText || "Food item"}

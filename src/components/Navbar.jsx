@@ -14,8 +14,8 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <ul className="flex items-center gap-6 text-white font-medium">
-          <li><a href="#">Swiggy Corporate</a></li>
-          <li><a href="#">Partner with us</a></li>
+          <li><a href="https://www.swiggy.com/corporate/">Swiggy Corporate</a></li>
+          <li><a href="https://partner.swiggy.com/login#/swiggy">Partner with us</a></li>
           <li><a href="#">Get the App</a></li>
           <li>
             <a
