@@ -9,7 +9,7 @@ const Restaurants = () => {
             const cors = "https://cors-anywhere.herokuapp.com/";
             const res = await fetch(
                 cors +
-                "https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.7040592&lng=77.10249019999999&carousel=true&third_party_vendor=1"
+                "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
             );
             const data = await res.json();
             setRestaurants(data?.data?.cards || []);
@@ -17,7 +17,6 @@ const Restaurants = () => {
             console.error("Restaurant fetch error:", error);
         }
     };
-    console.log(restaurantsData)
     useEffect(() => {
         fetchRestaurants();
     }, []);

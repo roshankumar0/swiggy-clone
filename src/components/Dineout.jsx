@@ -5,7 +5,6 @@ const IMAGE_BASE =
     "https://media-assets.swiggy.com/swiggy/image/upload/";
 
 const Dineout = ({ info }) => {
-    console.log(info)
     if (info === null) return
     return (
         <Link to={`restaurants/${info.id}/dineout`}>

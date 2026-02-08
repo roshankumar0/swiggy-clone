@@ -7,7 +7,6 @@ const RestaurantsMenu = () => {
     const [details, setDetails] = useState({});
     const [count, setCount] = useState(0)
     const { idx } = useParams();
-
     const cors = "https://cors-anywhere.herokuapp.com/";
     const url = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7040592&lng=77.10249019999999&restaurantId=${idx}`;
     async function fetRecommended() {
@@ -19,6 +18,7 @@ const RestaurantsMenu = () => {
     useEffect(() => {
         fetRecommended()
     }, []);
+     console.log(details)
     return (
         <div className='max-w-[800px] min-w-[800px]  m-auto pt-6 pr-4 pb-4 pl-4'>
             <div className='flex mb-6'>
@@ -37,13 +37,14 @@ const RestaurantsMenu = () => {
     )
 }
 
+
 export default RestaurantsMenu
 
 const ItemCard = ({ card }) => {
     const [count, setCount] = useState(0)
     let dispatch = useDispatch()
     const info = card?.card?.info;
-    const data = useSelector(state => state?.swiggerSlicer.data)
+    const data = useSelector(state => state?.swiggerSlicer?.data)
     console.log(data)
     let handleAddCart = () => {
         setCount(1);

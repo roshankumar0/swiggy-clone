@@ -6,7 +6,6 @@ const IMAGE_BASE =
 
 const RestaurantCard = ({ cards }) => {
   if (!cards) return null;
-
   const categoryImages =
     cards?.gridElements?.infoWithStyle?.info || [];
 
