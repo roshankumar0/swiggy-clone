@@ -2,17 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Gilroy-Medium", sans-serif;
-}
-h1{
-  font-family: "Gilroy-SemiBold",sans-serif;
-}
-p{
+
+.Bold {
   font-family: "Gilroy-Bold";
+
 }
 
-.scrollbar::-webkit-scrollbar{
+.Medium {
+  font-family: "Gilroy-Medium", sans-serif;
+}
+
+.SemiBold {
+  font-family: "Gilroy-SemiBold", sans-serif;
+}
+
+.ExtraBold {
+  font-family: "Gilroy-ExtraBold", sans-serif;
+}
+
+.scrollbar::-webkit-scrollbar {
   display: none;
 }
 

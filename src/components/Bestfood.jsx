@@ -20,10 +20,10 @@ const Bestfood = () => {
         });
     };
     return (
-        <main className="max-w-[80%] mx-auto px-4 py-8 space-y-12">
+        <main className=" px-4 py-8 space-y-12">
             {/* Food Sections */}
             {Food_data.map((data, index) => (
-                <section key={data.card.card.id || index} className="space-y-4">
+                <section key={data.card.card.id || index} className="max-w-[80%] mx-auto mt-[120px] ">
                     <header>
                         {data?.card?.card?.imageGridCards && data?.card?.card?.header && (<h2 className="text-2xl font-bold text-gray-900">
                             {data?.card?.card?.header?.title}
@@ -40,7 +40,7 @@ const Bestfood = () => {
             ))}
 
             {/* Dineout Section */}
-            <section className="space-y-4 flex flex-col">
+            <section className="max-w-[80%] mx-auto mt-[120px]">
                 {/* Header with arrows */}
                 <header className="flex items-center justify-between">
                     <div className="flex gap-2 w-full justify-end">
